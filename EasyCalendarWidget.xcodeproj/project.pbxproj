@@ -69,6 +69,7 @@
 		E10000160000000000000001 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		E10000180000000000000001 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		E10000210000000000000001 /* CalendarWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CalendarWidgetExtension.entitlements; sourceTree = "<group>"; };
+		E100003B0000000000000001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +123,7 @@
 				E100002B0000000000000001 /* Views */,
 				E10000140000000000000001 /* Assets.xcassets */,
 				E10000210000000000000001 /* CalendarWidgetExtension.entitlements */,
+				E100003B0000000000000001 /* Info.plist */,
 			);
 			path = CalendarWidgetExtension;
 			sourceTree = "<group>";
@@ -477,7 +479,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = CalendarWidgetExtension;
+				INFOPLIST_FILE = CalendarWidgetExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Easy Calendar Widget";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -502,7 +505,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = CalendarWidgetExtension;
+				INFOPLIST_FILE = CalendarWidgetExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Easy Calendar Widget";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
