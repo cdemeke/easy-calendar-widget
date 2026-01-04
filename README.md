@@ -26,9 +26,7 @@ A clean, minimal calendar widget for macOS that displays multiple months on your
 
 ### Option 1: Mac App Store (Recommended)
 
-[![Download on the Mac App Store](https://developer.apple.com/assets/elements/badges/download-on-the-mac-app-store.svg)](https://apps.apple.com/app/easy-calendar-widget)
-
-*Coming soon - pending App Store review*
+[**Download on the Mac App Store**](https://apps.apple.com/app/easy-calendar-widget) *(Coming soon - pending review)*
 
 ### Option 2: Direct Download
 
