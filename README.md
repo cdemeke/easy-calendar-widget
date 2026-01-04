@@ -21,11 +21,29 @@ A clean, minimal calendar widget for macOS that displays multiple months on your
 ## Requirements
 
 - macOS 13.0 or later
-- Xcode 15.0+ (for building from source)
 
 ## Installation
 
-### From Source
+### Option 1: Mac App Store (Recommended)
+
+[![Download on the Mac App Store](https://developer.apple.com/assets/elements/badges/download-on-the-mac-app-store.svg)](https://apps.apple.com/app/easy-calendar-widget)
+
+*Coming soon - pending App Store review*
+
+### Option 2: Direct Download
+
+1. Go to the [Releases](https://github.com/cdemeke/easy-calendar-widget/releases) page
+2. Download the latest `EasyCalendarWidget.zip`
+3. Unzip and drag `EasyCalendarWidget.app` to your `/Applications` folder
+4. Open the app (you may need to right-click → Open the first time to bypass Gatekeeper)
+5. Add the widget to your desktop:
+   - Right-click on your desktop
+   - Select "Edit Widgets..."
+   - Find "Easy Calendar Widget" and drag it to your desktop
+
+### Option 3: Build from Source
+
+Requires Xcode 15.0+
 
 1. Clone the repository:
    ```bash
