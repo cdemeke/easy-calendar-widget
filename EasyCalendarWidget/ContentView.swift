@@ -5,11 +5,13 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         VStack(spacing: 24) {
-            // App icon placeholder
-            Image(systemName: "calendar")
-                .font(.system(size: 64))
-                .foregroundStyle(.tint)
-                .padding(.bottom, 8)
+            Spacer()
+
+            // App icon
+            Image(nsImage: NSApp.applicationIconImage)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 128, height: 128)
 
             Text("Easy Calendar Widget")
                 .font(.largeTitle)
