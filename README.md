@@ -27,7 +27,7 @@ A clean, minimal calendar widget for macOS that displays multiple months on your
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/easy-calendar-widget.git
+   git clone https://github.com/cdemeke/easy-calendar-widget.git
    cd easy-calendar-widget
    ```
 
