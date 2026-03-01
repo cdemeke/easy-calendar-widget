@@ -2,6 +2,8 @@
 
 A clean, minimal calendar widget for macOS that displays multiple months on your desktop or Notification Center.
 
+**[View the overview site](https://date.chrisdemeke.com)**
+
 ## Features
 
 - **Multiple Sizes**: Small (1 month), Medium (2 months), or Large (4 months) widget options
