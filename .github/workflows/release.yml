@@ -56,6 +56,7 @@ jobs:
             CODE_SIGN_IDENTITY="Developer ID Application" \
             CODE_SIGN_STYLE=Manual \
             DEVELOPMENT_TEAM=${{ secrets.APPLE_TEAM_ID }} \
+            ENABLE_HARDENED_RUNTIME=YES \
             -quiet
 
       - name: Export app
