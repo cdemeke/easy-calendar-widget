@@ -73,11 +73,23 @@ jobs:
           ditto -c -k --keepParent build/dmg/EasyCalendarWidget.app build/EasyCalendarWidget.zip
 
           # Submit for notarization and wait
-          xcrun notarytool submit build/EasyCalendarWidget.zip \
+          SUBMIT_OUTPUT=$(xcrun notarytool submit build/EasyCalendarWidget.zip \
             --apple-id "$APPLE_ID" \
             --password "$APPLE_ID_PASSWORD" \
             --team-id "$APPLE_TEAM_ID" \
-            --wait
+            --wait 2>&1) || true
+          echo "$SUBMIT_OUTPUT"
+
+          # Extract submission ID and check result
+          SUBMISSION_ID=$(echo "$SUBMIT_OUTPUT" | grep "id:" | head -1 | awk '{print $2}')
+          if echo "$SUBMIT_OUTPUT" | grep -q "Invalid"; then
+            echo "Notarization failed. Fetching log..."
+            xcrun notarytool log "$SUBMISSION_ID" \
+              --apple-id "$APPLE_ID" \
+              --password "$APPLE_ID_PASSWORD" \
+              --team-id "$APPLE_TEAM_ID"
+            exit 1
+          fi
 
           # Staple the notarization ticket to the app
           xcrun stapler staple build/dmg/EasyCalendarWidget.app
