@@ -98,32 +98,24 @@ jobs:
       - name: Install create-dmg
         run: brew install create-dmg
 
+      - name: Generate DMG background
+        run: |
+          pip3 install --break-system-packages pyobjc-framework-Quartz pyobjc-framework-CoreText
+          python3 scripts/generate_dmg_background.py
+
       - name: Create DMG
         run: |
           # Add Applications symlink
           ln -s /Applications build/dmg/Applications
 
-          # Create installation instructions
-          cat > build/dmg/README.txt <<'INSTRUCTIONS'
-          How to Install Easy Calendar Widget:
-
-          1. Drag EasyCalendarWidget.app into the Applications folder
-          2. Open EasyCalendarWidget from your Applications folder
-             (The app runs silently — no dock icon will appear)
-          3. Right-click your desktop > Edit Widgets
-          4. Search for "Easy Calendar" and add it to your desktop
-
-          To uninstall, simply delete EasyCalendarWidget from Applications.
-          INSTRUCTIONS
-
           create-dmg \
             --volname "Easy Calendar Widget" \
+            --background scripts/dmg_background.png \
             --window-pos 200 120 \
             --window-size 660 400 \
             --icon-size 80 \
             --icon "EasyCalendarWidget.app" 180 170 \
             --icon "Applications" 480 170 \
-            --icon "README.txt" 330 320 \
             --hide-extension "EasyCalendarWidget.app" \
             --app-drop-link 480 170 \
             build/EasyCalendarWidget.dmg \
