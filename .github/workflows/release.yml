@@ -95,14 +95,39 @@ jobs:
           # Staple the notarization ticket to the app
           xcrun stapler staple build/dmg/EasyCalendarWidget.app
 
+      - name: Install create-dmg
+        run: brew install create-dmg
+
       - name: Create DMG
         run: |
-          hdiutil create \
-            -volname "EasyCalendarWidget" \
-            -srcfolder build/dmg \
-            -ov \
-            -format UDZO \
-            build/EasyCalendarWidget.dmg
+          # Add Applications symlink
+          ln -s /Applications build/dmg/Applications
+
+          # Create installation instructions
+          cat > build/dmg/README.txt <<'INSTRUCTIONS'
+          How to Install Easy Calendar Widget:
+
+          1. Drag EasyCalendarWidget.app into the Applications folder
+          2. Open EasyCalendarWidget from your Applications folder
+             (The app runs silently — no dock icon will appear)
+          3. Right-click your desktop > Edit Widgets
+          4. Search for "Easy Calendar" and add it to your desktop
+
+          To uninstall, simply delete EasyCalendarWidget from Applications.
+          INSTRUCTIONS
+
+          create-dmg \
+            --volname "Easy Calendar Widget" \
+            --window-pos 200 120 \
+            --window-size 660 400 \
+            --icon-size 80 \
+            --icon "EasyCalendarWidget.app" 180 170 \
+            --icon "Applications" 480 170 \
+            --icon "README.txt" 330 320 \
+            --hide-extension "EasyCalendarWidget.app" \
+            --app-drop-link 480 170 \
+            build/EasyCalendarWidget.dmg \
+            build/dmg/
 
       - name: Notarize DMG
         env:
