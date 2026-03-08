@@ -4,6 +4,10 @@ A clean, minimal calendar widget for macOS that displays multiple months on your
 
 **[View the overview site](https://date.chrisdemeke.com)**
 
+## Download
+
+**[Download the latest release (DMG)](https://github.com/cdemeke/easy-calendar-widget/releases/latest)** — macOS 13.0+
+
 ## Features
 
 - **Multiple Sizes**: Small (1 month), Medium (2 months), or Large (4 months) widget options
@@ -32,10 +36,10 @@ A clean, minimal calendar widget for macOS that displays multiple months on your
 
 ### Option 2: Direct Download
 
-1. Go to the [Releases](https://github.com/cdemeke/easy-calendar-widget/releases) page
-2. Download the latest `EasyCalendarWidget.zip`
-3. Unzip and drag `EasyCalendarWidget.app` to your `/Applications` folder
-4. Open the app (you may need to right-click → Open the first time to bypass Gatekeeper)
+1. Go to the [Releases](https://github.com/cdemeke/easy-calendar-widget/releases/latest) page
+2. Download the latest `EasyCalendarWidget.dmg`
+3. Open the DMG and drag `EasyCalendarWidget.app` to your Applications folder
+4. Open the app once (it runs silently with no dock icon)
 5. Add the widget to your desktop:
    - Right-click on your desktop
    - Select "Edit Widgets..."

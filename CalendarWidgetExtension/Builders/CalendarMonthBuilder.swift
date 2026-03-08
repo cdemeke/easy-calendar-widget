@@ -28,6 +28,14 @@ struct CalendarMonthBuilder {
         }
     }
 
+    /// Builds models for six consecutive months centered around the current month
+    /// - Returns: Array of [prev2, previous, current, next, nextNext, nextNextNext] month models
+    func buildSixMonthModels() -> [CalendarMonthModel] {
+        return (-2...3).map { offset in
+            buildMonthModel(monthOffset: offset)
+        }
+    }
+
     /// Builds a model for a specific month relative to the current month
     /// - Parameter monthOffset: Offset from current month (0 = current, -1 = previous, etc.)
     /// - Returns: The calendar month model

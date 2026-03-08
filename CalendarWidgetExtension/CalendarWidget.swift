@@ -38,7 +38,7 @@ struct CalendarTimelineProvider: TimelineProvider {
     /// Creates a calendar entry with precomputed month models
     private func createEntry(for date: Date) -> CalendarWidgetEntry {
         let builder = CalendarMonthBuilder(referenceDate: date)
-        let months = builder.buildFourMonthModels()
+        let months = builder.buildSixMonthModels()
         return CalendarWidgetEntry(date: date, months: months)
     }
 
@@ -72,7 +72,11 @@ struct CalendarWidget: Widget {
 
     /// Supported widget families for macOS
     private var supportedFamilies: [WidgetFamily] {
-        [.systemSmall, .systemMedium, .systemLarge]
+        if #available(macOS 14.0, *) {
+            return [.systemSmall, .systemMedium, .systemLarge, .systemExtraLarge]
+        } else {
+            return [.systemSmall, .systemMedium, .systemLarge]
+        }
     }
 
     @available(macOS 14.0, *)

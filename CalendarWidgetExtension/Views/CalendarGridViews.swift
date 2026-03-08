@@ -77,6 +77,32 @@ struct FourMonthGridView: View {
     }
 }
 
+// MARK: - SixMonthGridView
+
+/// Extra large widget: displays 6 months in a 3x2 grid
+struct SixMonthGridView: View {
+    let entry: CalendarWidgetEntry
+
+    var body: some View {
+        VStack(spacing: 6) {
+            // Top row: PrevPrev + Previous + Current
+            HStack(spacing: 6) {
+                MonthView(model: entry.previousPreviousMonth, size: .extraLarge)
+                MonthView(model: entry.previousMonth, size: .extraLarge)
+                MonthView(model: entry.currentMonth, size: .extraLarge)
+            }
+
+            // Bottom row: Next + NextNext + NextNextNext
+            HStack(spacing: 6) {
+                MonthView(model: entry.nextMonth, size: .extraLarge)
+                MonthView(model: entry.nextNextMonth, size: .extraLarge)
+                MonthView(model: entry.nextNextNextMonth, size: .extraLarge)
+            }
+        }
+        .widgetBackground()
+    }
+}
+
 // MARK: - WidgetBackgroundView
 
 /// Consistent background for all widget sizes
@@ -122,8 +148,10 @@ struct CalendarWidgetEntryView: View {
             SingleMonthView(entry: entry)
         case .systemMedium:
             TwoMonthGridView(entry: entry)
-        case .systemLarge, .systemExtraLarge:
+        case .systemLarge:
             FourMonthGridView(entry: entry)
+        case .systemExtraLarge:
+            SixMonthGridView(entry: entry)
         @unknown default:
             TwoMonthGridView(entry: entry)
         }
@@ -136,7 +164,7 @@ struct CalendarWidgetEntryView: View {
 struct CalendarWidgetPreviews: PreviewProvider {
     static var previews: some View {
         let builder = CalendarMonthBuilder()
-        let months = builder.buildFourMonthModels()
+        let months = builder.buildSixMonthModels()
         let entry = CalendarWidgetEntry(date: Date(), months: months)
 
         Group {
@@ -150,12 +178,18 @@ struct CalendarWidgetPreviews: PreviewProvider {
 
             CalendarWidgetEntryView(entry: entry)
                 .previewContext(WidgetPreviewContext(family: .systemLarge))
-                .previewDisplayName("Large")
+                .previewDisplayName("Large - 4 Month")
 
-            CalendarWidgetEntryView(entry: entry)
-                .previewContext(WidgetPreviewContext(family: .systemLarge))
-                .previewDisplayName("Large Dark")
-                .environment(\.colorScheme, .dark)
+            if #available(macOS 14.0, *) {
+                CalendarWidgetEntryView(entry: entry)
+                    .previewContext(WidgetPreviewContext(family: .systemExtraLarge))
+                    .previewDisplayName("Extra Large - 6 Month")
+
+                CalendarWidgetEntryView(entry: entry)
+                    .previewContext(WidgetPreviewContext(family: .systemExtraLarge))
+                    .previewDisplayName("Extra Large Dark")
+                    .environment(\.colorScheme, .dark)
+            }
         }
     }
 }

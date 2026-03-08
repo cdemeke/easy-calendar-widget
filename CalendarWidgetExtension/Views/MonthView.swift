@@ -45,6 +45,8 @@ struct MonthView: View {
             return .system(size: 12, weight: .semibold)
         case .large:
             return .system(size: 13, weight: .semibold)
+        case .extraLarge:
+            return .system(size: 12, weight: .semibold)
         }
     }
 
@@ -56,6 +58,8 @@ struct MonthView: View {
             return (5, 2)
         case .large:
             return (6, 3)
+        case .extraLarge:
+            return (4, 2)
         }
     }
 
@@ -64,6 +68,7 @@ struct MonthView: View {
         case .small: return 8
         case .medium: return 10
         case .large: return 12
+        case .extraLarge: return 8
         }
     }
 
@@ -72,6 +77,7 @@ struct MonthView: View {
         case .small: return 12
         case .medium: return 14
         case .large: return 16
+        case .extraLarge: return 14
         }
     }
 
@@ -151,6 +157,7 @@ struct WeekdayHeaderView: View {
         case .small: return .system(size: 8)
         case .medium: return .system(size: 9)
         case .large: return .system(size: 10)
+        case .extraLarge: return .system(size: 9)
         }
     }
 }
@@ -208,6 +215,7 @@ struct DayView: View {
         case .small: return .system(size: 9)
         case .medium: return .system(size: 10)
         case .large: return .system(size: 11)
+        case .extraLarge: return .system(size: 10)
         }
     }
 
@@ -216,6 +224,7 @@ struct DayView: View {
         case .small: return 12
         case .medium: return 14
         case .large: return 16
+        case .extraLarge: return 13
         }
     }
 
@@ -224,6 +233,7 @@ struct DayView: View {
         case .small: return 14
         case .medium: return 16
         case .large: return 20
+        case .extraLarge: return 16
         }
     }
 
@@ -247,6 +257,7 @@ enum WidgetSize {
     case small
     case medium
     case large
+    case extraLarge
 
     init(from family: WidgetFamily) {
         switch family {
@@ -254,8 +265,10 @@ enum WidgetSize {
             self = .small
         case .systemMedium:
             self = .medium
-        case .systemLarge, .systemExtraLarge:
+        case .systemLarge:
             self = .large
+        case .systemExtraLarge:
+            self = .extraLarge
         @unknown default:
             self = .medium
         }
