@@ -107,3 +107,42 @@ struct CalendarWidget: Widget {
         }
     }
 }
+
+// MARK: - SixMonthCalendarWidget
+
+/// A separate widget that always shows 6 months in a 3x2 grid at the large size
+struct SixMonthCalendarWidget: Widget {
+    let kind: String = "SixMonthCalendarWidget"
+
+    var body: some WidgetConfiguration {
+        makeConfiguration()
+    }
+
+    @available(macOS 14.0, *)
+    private func makeConfigurationModern() -> some WidgetConfiguration {
+        StaticConfiguration(kind: kind, provider: CalendarTimelineProvider()) { entry in
+            SixMonthGridView(entry: entry)
+        }
+        .configurationDisplayName("6-Month Calendar")
+        .description("View 6 months at a glance in a 3×2 grid.")
+        .supportedFamilies([.systemLarge])
+        .contentMarginsDisabled()
+    }
+
+    private func makeConfigurationLegacy() -> some WidgetConfiguration {
+        StaticConfiguration(kind: kind, provider: CalendarTimelineProvider()) { entry in
+            SixMonthGridView(entry: entry)
+        }
+        .configurationDisplayName("6-Month Calendar")
+        .description("View 6 months at a glance in a 3×2 grid.")
+        .supportedFamilies([.systemLarge])
+    }
+
+    private func makeConfiguration() -> some WidgetConfiguration {
+        if #available(macOS 14.0, *) {
+            return makeConfigurationModern()
+        } else {
+            return makeConfigurationLegacy()
+        }
+    }
+}
