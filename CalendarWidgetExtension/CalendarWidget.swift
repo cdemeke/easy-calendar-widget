@@ -79,13 +79,29 @@ struct CalendarWidget: Widget {
         }
     }
 
+    private var displayName: String {
+        #if DEBUG
+        "Dev - Calendar"
+        #else
+        "Calendar"
+        #endif
+    }
+
+    private var displayDescription: String {
+        #if DEBUG
+        "DEV BUILD — View multiple months at a glance."
+        #else
+        "View multiple months at a glance."
+        #endif
+    }
+
     @available(macOS 14.0, *)
     private func makeConfigurationModern() -> some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: CalendarTimelineProvider()) { entry in
             CalendarWidgetEntryView(entry: entry)
         }
-        .configurationDisplayName("Calendar")
-        .description("View multiple months at a glance.")
+        .configurationDisplayName(displayName)
+        .description(displayDescription)
         .supportedFamilies(supportedFamilies)
         .contentMarginsDisabled()
     }
@@ -94,8 +110,8 @@ struct CalendarWidget: Widget {
         StaticConfiguration(kind: kind, provider: CalendarTimelineProvider()) { entry in
             CalendarWidgetEntryView(entry: entry)
         }
-        .configurationDisplayName("Calendar")
-        .description("View multiple months at a glance.")
+        .configurationDisplayName(displayName)
+        .description(displayDescription)
         .supportedFamilies(supportedFamilies)
     }
 
@@ -118,13 +134,29 @@ struct SixMonthCalendarWidget: Widget {
         makeConfiguration()
     }
 
+    private var displayName: String {
+        #if DEBUG
+        "Dev - 6-Month Calendar"
+        #else
+        "6-Month Calendar"
+        #endif
+    }
+
+    private var displayDescription: String {
+        #if DEBUG
+        "DEV BUILD — View 6 months at a glance in a 3×2 grid."
+        #else
+        "View 6 months at a glance in a 3×2 grid."
+        #endif
+    }
+
     @available(macOS 14.0, *)
     private func makeConfigurationModern() -> some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: CalendarTimelineProvider()) { entry in
             SixMonthGridView(entry: entry)
         }
-        .configurationDisplayName("6-Month Calendar")
-        .description("View 6 months at a glance in a 3×2 grid.")
+        .configurationDisplayName(displayName)
+        .description(displayDescription)
         .supportedFamilies([.systemLarge])
         .contentMarginsDisabled()
     }
@@ -133,8 +165,8 @@ struct SixMonthCalendarWidget: Widget {
         StaticConfiguration(kind: kind, provider: CalendarTimelineProvider()) { entry in
             SixMonthGridView(entry: entry)
         }
-        .configurationDisplayName("6-Month Calendar")
-        .description("View 6 months at a glance in a 3×2 grid.")
+        .configurationDisplayName(displayName)
+        .description(displayDescription)
         .supportedFamilies([.systemLarge])
     }
 

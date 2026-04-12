@@ -151,6 +151,17 @@ struct CalendarMonthBuilder {
             weekIndex += 1
         }
 
+        // Pad to exactly 6 rows so all months render at the same height
+        while weeks.count < 6 {
+            let placeholderDays = (0..<7).map { dayIndex in
+                CalendarDayModel.placeholder(id: "placeholder-pad-\(weeks.count)-\(dayIndex)")
+            }
+            weeks.append(CalendarWeekModel(
+                id: "week-\(weeks.count)",
+                days: placeholderDays
+            ))
+        }
+
         return weeks
     }
 }
