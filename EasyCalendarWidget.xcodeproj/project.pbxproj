@@ -426,6 +426,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_CFBundleDisplayName = "EasyCalendarWidget - Dev";
 				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Chris Demeke. All rights reserved.";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -433,8 +434,8 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.chrisdemeke.easycalendarwidget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.chrisdemeke.easycalendarwidget.dev;
+				PRODUCT_NAME = "EasyCalendarWidget - Dev";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -480,7 +481,7 @@
 				DEVELOPMENT_TEAM = TQV66JM3KL;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CalendarWidgetExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Easy Calendar Widget";
+				INFOPLIST_KEY_CFBundleDisplayName = "EasyCalendarWidget - Dev";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -488,7 +489,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.chrisdemeke.easycalendarwidget.CalendarWidgetExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chrisdemeke.easycalendarwidget.dev.CalendarWidgetExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
