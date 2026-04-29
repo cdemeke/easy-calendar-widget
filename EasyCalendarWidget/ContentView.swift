@@ -34,14 +34,14 @@ struct ContentView: View {
 
                 InstructionRow(
                     number: 2,
-                    title: "Find Easy Calendar",
-                    description: "Search for \"Calendar\" or browse to find the Easy Calendar widget."
+                    title: "Find the Widgets",
+                    description: "Search for \"Calendar\" to see the 1 Month, 2 Months, 4 Months, and 6 Months options."
                 )
 
                 InstructionRow(
                     number: 3,
-                    title: "Choose a Size",
-                    description: "Small shows 1 month, Medium shows 2 months, Large shows 4 months in a grid."
+                    title: "Choose a Layout",
+                    description: "Choose the layout that fits your space: 1 Month, 2 Months, 4 Months, or 6 Months."
                 )
 
                 InstructionRow(

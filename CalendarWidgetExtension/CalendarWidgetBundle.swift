@@ -5,7 +5,9 @@ import SwiftUI
 @main
 struct CalendarWidgetBundle: WidgetBundle {
     var body: some Widget {
-        CalendarWidget()
-        SixMonthCalendarWidget()
+        Calendar1x1Widget()
+        Calendar1x2Widget()
+        Calendar2x2Widget()
+        Calendar3x2Widget()
     }
 }

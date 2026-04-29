@@ -7,6 +7,7 @@ import WidgetKit
 struct MonthView: View {
     let model: CalendarMonthModel
     let size: WidgetSize
+    var style: MonthViewStyle = .card
 
     @Environment(\.colorScheme) var colorScheme
 
@@ -30,9 +31,7 @@ struct MonthView: View {
             }
         }
         .padding(cardPadding)
-        .background(cardBackground)
-        .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
-        .shadow(color: shadowColor, radius: shadowRadius, x: 0, y: shadowY)
+        .modifier(MonthViewSurfaceModifier(style: style, background: cardBackground, cornerRadius: cornerRadius, shadowColor: shadowColor, shadowRadius: shadowRadius, shadowY: shadowY))
     }
 
     // MARK: - Sizing Properties
@@ -82,17 +81,17 @@ struct MonthView: View {
     }
 
     private var shadowRadius: CGFloat {
-        colorScheme == .dark ? 4 : 6
+        colorScheme == .dark ? 3 : 5
     }
 
     private var shadowY: CGFloat {
-        colorScheme == .dark ? 2 : 3
+        colorScheme == .dark ? 1.5 : 2
     }
 
     private var shadowColor: Color {
         colorScheme == .dark
-            ? Color.black.opacity(0.3)
-            : Color.black.opacity(0.08)
+            ? Color.black.opacity(0.22)
+            : Color.black.opacity(0.055)
     }
 
     @ViewBuilder
@@ -230,17 +229,17 @@ struct DayView: View {
 
     private var todayCircleSize: CGFloat {
         switch size {
-        case .small: return 14
-        case .medium: return 16
-        case .large: return 20
-        case .extraLarge: return 16
+        case .small: return 13
+        case .medium: return 15
+        case .large: return 18
+        case .extraLarge: return 15
         }
     }
 
     private var todayBackgroundColor: Color {
         colorScheme == .dark
-            ? Color.accentColor.opacity(0.4)
-            : Color.accentColor.opacity(0.2)
+            ? Color.accentColor.opacity(0.32)
+            : Color.accentColor.opacity(0.16)
     }
 
     private var todayTextColor: Color {
@@ -271,6 +270,32 @@ enum WidgetSize {
             self = .extraLarge
         @unknown default:
             self = .medium
+        }
+    }
+}
+
+enum MonthViewStyle {
+    case card
+    case connected
+}
+
+private struct MonthViewSurfaceModifier<Background: View>: ViewModifier {
+    let style: MonthViewStyle
+    let background: Background
+    let cornerRadius: CGFloat
+    let shadowColor: Color
+    let shadowRadius: CGFloat
+    let shadowY: CGFloat
+
+    func body(content: Content) -> some View {
+        switch style {
+        case .card:
+            content
+                .background(background)
+                .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
+                .shadow(color: shadowColor, radius: shadowRadius, x: 0, y: shadowY)
+        case .connected:
+            content
         }
     }
 }

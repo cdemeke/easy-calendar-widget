@@ -78,7 +78,7 @@ The project is configured so that Debug and Release are fully separated:
 |---|---|---|
 | Bundle ID | `com.chrisdemeke.easycalendarwidget.dev` | `com.chrisdemeke.easycalendarwidget` |
 | App name | EasyCalendarWidget - Dev | EasyCalendarWidget |
-| Widget names | "Dev - Calendar", "Dev - 6-Month Calendar" | "Calendar", "6-Month Calendar" |
+| Widget names | "Dev - 1 Month (1x1)", "Dev - 2 Months (1x2)", "Dev - 4 Months (2x2)", "Dev - 6 Months (3x2)" | "Calendar - 1 Month", "Calendar - 2 Months", "Calendar - 4 Months", "Calendar - 6 Months" |
 | Code signing | Apple Development (automatic) | Developer ID Application (manual in CI) |
 
 This means you can have both Debug and Release builds installed side-by-side on the same machine without conflicts.

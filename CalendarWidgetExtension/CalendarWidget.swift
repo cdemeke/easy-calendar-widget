@@ -44,137 +44,146 @@ struct CalendarTimelineProvider: TimelineProvider {
 
     /// Calculates the next update time (1 minute after midnight)
     private func calculateNextUpdateDate(from date: Date) -> Date {
-        let calendar = Calendar.current
-
-        // Get tomorrow's date
-        guard let tomorrow = calendar.date(byAdding: .day, value: 1, to: date) else {
-            // Fallback: update in 24 hours
-            return date.addingTimeInterval(24 * 60 * 60)
-        }
-
-        // Get start of tomorrow (midnight)
-        let startOfTomorrow = calendar.startOfDay(for: tomorrow)
-
-        // Add 1 minute buffer to ensure we're past midnight
-        return startOfTomorrow.addingTimeInterval(60)
+        TimelineRefreshCalculator().nextUpdateDate(from: date)
     }
 }
 
-// MARK: - CalendarWidget
+// MARK: - Calendar Widget Layouts
 
-/// The main widget definition
-struct CalendarWidget: Widget {
-    let kind: String = "CalendarWidget"
+enum CalendarWidgetLayout {
+    case oneByOne
+    case oneByTwo
+    case twoByTwo
+    case threeByTwo
 
-    var body: some WidgetConfiguration {
-        makeConfiguration()
-    }
-
-    /// Supported widget families for macOS
-    private var supportedFamilies: [WidgetFamily] {
-        if #available(macOS 14.0, *) {
-            return [.systemSmall, .systemMedium, .systemLarge, .systemExtraLarge]
-        } else {
-            return [.systemSmall, .systemMedium, .systemLarge]
-        }
-    }
-
-    private var displayName: String {
+    var kind: String {
         #if DEBUG
-        "Dev - Calendar"
+        switch self {
+        case .oneByOne: return "DevCalendar1x1Widget"
+        case .oneByTwo: return "DevCalendar1x2Widget"
+        case .twoByTwo: return "DevCalendar2x2Widget"
+        case .threeByTwo: return "DevCalendar3x2Widget"
+        }
         #else
-        "Calendar"
+        switch self {
+        case .oneByOne: return "Calendar1x1Widget"
+        case .oneByTwo: return "Calendar1x2Widget"
+        case .twoByTwo: return "Calendar2x2Widget"
+        case .threeByTwo: return "Calendar3x2Widget"
+        }
         #endif
     }
 
-    private var displayDescription: String {
+    var displayName: String {
         #if DEBUG
-        "DEV BUILD — View multiple months at a glance."
+        switch self {
+        case .oneByOne: return "Dev - 1 Month (1x1)"
+        case .oneByTwo: return "Dev - 2 Months (1x2)"
+        case .twoByTwo: return "Dev - 4 Months (2x2)"
+        case .threeByTwo: return "Dev - 6 Months (3x2)"
+        }
         #else
-        "View multiple months at a glance."
+        switch self {
+        case .oneByOne: return "Calendar - 1 Month"
+        case .oneByTwo: return "Calendar - 2 Months"
+        case .twoByTwo: return "Calendar - 4 Months"
+        case .threeByTwo: return "Calendar - 6 Months"
+        }
         #endif
     }
 
-    @available(macOS 14.0, *)
-    private func makeConfigurationModern() -> some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: CalendarTimelineProvider()) { entry in
-            CalendarWidgetEntryView(entry: entry)
-        }
-        .configurationDisplayName(displayName)
-        .description(displayDescription)
-        .supportedFamilies(supportedFamilies)
-        .contentMarginsDisabled()
+    var displayDescription: String {
+        #if DEBUG
+        "DEV BUILD — \(description)"
+        #else
+        description
+        #endif
     }
 
-    private func makeConfigurationLegacy() -> some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: CalendarTimelineProvider()) { entry in
-            CalendarWidgetEntryView(entry: entry)
+    var supportedFamilies: [WidgetFamily] {
+        switch self {
+        case .oneByOne: return [.systemSmall]
+        case .oneByTwo: return [.systemMedium]
+        case .twoByTwo, .threeByTwo: return [.systemLarge]
         }
-        .configurationDisplayName(displayName)
-        .description(displayDescription)
-        .supportedFamilies(supportedFamilies)
     }
 
-    private func makeConfiguration() -> some WidgetConfiguration {
-        if #available(macOS 14.0, *) {
-            return makeConfigurationModern()
-        } else {
-            return makeConfigurationLegacy()
+    private var description: String {
+        switch self {
+        case .oneByOne: return "Compact single-month view."
+        case .oneByTwo: return "Two-month side-by-side view."
+        case .twoByTwo: return "Four-month planning view."
+        case .threeByTwo: return "Six-month overview."
         }
     }
 }
 
-// MARK: - SixMonthCalendarWidget
+private struct CalendarLayoutEntryView: View {
+    let layout: CalendarWidgetLayout
+    let entry: CalendarWidgetEntry
 
-/// A separate widget that always shows 6 months in a 3x2 grid at the large size
-struct SixMonthCalendarWidget: Widget {
-    let kind: String = "SixMonthCalendarWidget"
+    var body: some View {
+        switch layout {
+        case .oneByOne:
+            SingleMonthView(entry: entry)
+        case .oneByTwo:
+            TwoMonthGridView(entry: entry)
+        case .twoByTwo:
+            FourMonthGridView(entry: entry)
+        case .threeByTwo:
+            SixMonthGridView(entry: entry)
+        }
+    }
+}
 
+struct Calendar1x1Widget: Widget {
     var body: some WidgetConfiguration {
-        makeConfiguration()
+        makeCalendarLayoutConfiguration(layout: .oneByOne)
     }
+}
 
-    private var displayName: String {
-        #if DEBUG
-        "Dev - 6-Month Calendar"
-        #else
-        "6-Month Calendar"
-        #endif
+struct Calendar1x2Widget: Widget {
+    var body: some WidgetConfiguration {
+        makeCalendarLayoutConfiguration(layout: .oneByTwo)
     }
+}
 
-    private var displayDescription: String {
-        #if DEBUG
-        "DEV BUILD — View 6 months at a glance in a 3×2 grid."
-        #else
-        "View 6 months at a glance in a 3×2 grid."
-        #endif
+struct Calendar2x2Widget: Widget {
+    var body: some WidgetConfiguration {
+        makeCalendarLayoutConfiguration(layout: .twoByTwo)
     }
+}
 
-    @available(macOS 14.0, *)
-    private func makeConfigurationModern() -> some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: CalendarTimelineProvider()) { entry in
-            SixMonthGridView(entry: entry)
-        }
-        .configurationDisplayName(displayName)
-        .description(displayDescription)
-        .supportedFamilies([.systemLarge])
-        .contentMarginsDisabled()
+struct Calendar3x2Widget: Widget {
+    var body: some WidgetConfiguration {
+        makeCalendarLayoutConfiguration(layout: .threeByTwo)
     }
+}
 
-    private func makeConfigurationLegacy() -> some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: CalendarTimelineProvider()) { entry in
-            SixMonthGridView(entry: entry)
-        }
-        .configurationDisplayName(displayName)
-        .description(displayDescription)
-        .supportedFamilies([.systemLarge])
+@available(macOS 14.0, *)
+private func makeCalendarLayoutConfigurationModern(layout: CalendarWidgetLayout) -> some WidgetConfiguration {
+    StaticConfiguration(kind: layout.kind, provider: CalendarTimelineProvider()) { entry in
+        CalendarLayoutEntryView(layout: layout, entry: entry)
     }
+    .configurationDisplayName(layout.displayName)
+    .description(layout.displayDescription)
+    .supportedFamilies(layout.supportedFamilies)
+    .contentMarginsDisabled()
+}
 
-    private func makeConfiguration() -> some WidgetConfiguration {
-        if #available(macOS 14.0, *) {
-            return makeConfigurationModern()
-        } else {
-            return makeConfigurationLegacy()
-        }
+private func makeCalendarLayoutConfigurationLegacy(layout: CalendarWidgetLayout) -> some WidgetConfiguration {
+    StaticConfiguration(kind: layout.kind, provider: CalendarTimelineProvider()) { entry in
+        CalendarLayoutEntryView(layout: layout, entry: entry)
+    }
+    .configurationDisplayName(layout.displayName)
+    .description(layout.displayDescription)
+    .supportedFamilies(layout.supportedFamilies)
+}
+
+private func makeCalendarLayoutConfiguration(layout: CalendarWidgetLayout) -> some WidgetConfiguration {
+    if #available(macOS 14.0, *) {
+        return makeCalendarLayoutConfigurationModern(layout: layout)
+    } else {
+        return makeCalendarLayoutConfigurationLegacy(layout: layout)
     }
 }
