@@ -20,10 +20,21 @@
 		E10000150000000000000001 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E10000160000000000000001 /* WidgetKit.framework */; };
 		E10000170000000000000001 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E10000180000000000000001 /* SwiftUI.framework */; };
 		E10000190000000000000001 /* CalendarWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E100001A0000000000000001 /* CalendarWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		E100003C0000000000000001 /* CalendarWidgetEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10000410000000000000001 /* CalendarWidgetEntry.swift */; };
+		E100003D0000000000000001 /* TimelineRefreshCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10000420000000000000001 /* TimelineRefreshCalculator.swift */; };
+		E100003E0000000000000001 /* CalendarWidgetLogicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10000430000000000000001 /* CalendarWidgetLogicTests.swift */; };
+		E100003F0000000000000001 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E10000450000000000000001 /* XCTest.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		E100001B0000000000000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E100001C0000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E100001D0000000000000001;
+			remoteInfo = CalendarWidgetExtension;
+		};
+		E10000400000000000000001 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E100001C0000000000000001 /* Project object */;
 			proxyType = 1;
@@ -64,6 +75,11 @@
 		E10000200000000000000001 /* EasyCalendarWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EasyCalendarWidget.entitlements; sourceTree = "<group>"; };
 		E10000210000000000000001 /* CalendarWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CalendarWidgetExtension.entitlements; sourceTree = "<group>"; };
 		E100003B0000000000000001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E10000410000000000000001 /* CalendarWidgetEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarWidgetEntry.swift; sourceTree = "<group>"; };
+		E10000420000000000000001 /* TimelineRefreshCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineRefreshCalculator.swift; sourceTree = "<group>"; };
+		E10000430000000000000001 /* CalendarWidgetLogicTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarWidgetLogicTests/CalendarWidgetLogicTests.swift; sourceTree = "<group>"; };
+		E10000440000000000000001 /* CalendarWidgetExtensionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CalendarWidgetExtensionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E10000450000000000000001 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = System/Library/Frameworks/XCTest.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +99,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E10000460000000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E100003F0000000000000001 /* XCTest.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -91,6 +115,7 @@
 			children = (
 				E10000250000000000000001 /* EasyCalendarWidget */,
 				E10000260000000000000001 /* CalendarWidgetExtension */,
+				E10000470000000000000001 /* Tests */,
 				E10000270000000000000001 /* Frameworks */,
 				E10000280000000000000001 /* Products */,
 			);
@@ -114,6 +139,7 @@
 				E100000A0000000000000001 /* CalendarWidget.swift */,
 				E10000290000000000000001 /* Models */,
 				E100002A0000000000000001 /* Builders */,
+				E10000480000000000000001 /* Support */,
 				E100002B0000000000000001 /* Views */,
 				E10000140000000000000001 /* Assets.xcassets */,
 				E10000210000000000000001 /* CalendarWidgetExtension.entitlements */,
@@ -127,6 +153,7 @@
 			children = (
 				E10000160000000000000001 /* WidgetKit.framework */,
 				E10000180000000000000001 /* SwiftUI.framework */,
+				E10000450000000000000001 /* XCTest.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -136,6 +163,7 @@
 			children = (
 				E100001F0000000000000001 /* EasyCalendarWidget.app */,
 				E100001A0000000000000001 /* CalendarWidgetExtension.appex */,
+				E10000440000000000000001 /* CalendarWidgetExtensionTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -144,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				E100000C0000000000000001 /* CalendarMonthModel.swift */,
+				E10000410000000000000001 /* CalendarWidgetEntry.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -163,6 +192,22 @@
 				E10000120000000000000001 /* CalendarGridViews.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		E10000470000000000000001 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				E10000430000000000000001 /* CalendarWidgetLogicTests.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		E10000480000000000000001 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				E10000420000000000000001 /* TimelineRefreshCalculator.swift */,
+			);
+			path = Support;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -204,6 +249,24 @@
 			productReference = E100001F0000000000000001 /* EasyCalendarWidget.app */;
 			productType = "com.apple.product-type.application";
 		};
+		E10000490000000000000001 /* CalendarWidgetExtensionTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E100004E0000000000000001 /* Build configuration list for PBXNativeTarget "CalendarWidgetExtensionTests" */;
+			buildPhases = (
+				E100004A0000000000000001 /* Sources */,
+				E10000460000000000000001 /* Frameworks */,
+				E100004F0000000000000001 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E100004B0000000000000001 /* PBXTargetDependency */,
+			);
+			name = CalendarWidgetExtensionTests;
+			productName = CalendarWidgetExtensionTests;
+			productReference = E10000440000000000000001 /* CalendarWidgetExtensionTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -219,6 +282,10 @@
 					};
 					E100002C0000000000000001 = {
 						CreatedOnToolsVersion = 15.0;
+					};
+					E10000490000000000000001 = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = E100001D0000000000000001;
 					};
 				};
 			};
@@ -237,6 +304,7 @@
 			targets = (
 				E100002C0000000000000001 /* EasyCalendarWidget */,
 				E100001D0000000000000001 /* CalendarWidgetExtension */,
+				E10000490000000000000001 /* CalendarWidgetExtensionTests */,
 			);
 		};
 /* End PBXProject section */
@@ -258,6 +326,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E100004F0000000000000001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -276,10 +351,20 @@
 			files = (
 				E10000070000000000000001 /* CalendarWidgetBundle.swift in Sources */,
 				E10000090000000000000001 /* CalendarWidget.swift in Sources */,
+				E100003C0000000000000001 /* CalendarWidgetEntry.swift in Sources */,
 				E100000B0000000000000001 /* CalendarMonthModel.swift in Sources */,
 				E100000D0000000000000001 /* CalendarMonthBuilder.swift in Sources */,
+				E100003D0000000000000001 /* TimelineRefreshCalculator.swift in Sources */,
 				E100000F0000000000000001 /* MonthView.swift in Sources */,
 				E10000110000000000000001 /* CalendarGridViews.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E100004A0000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E100003E0000000000000001 /* CalendarWidgetLogicTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,6 +375,11 @@
 			isa = PBXTargetDependency;
 			target = E100001D0000000000000001 /* CalendarWidgetExtension */;
 			targetProxy = E100001B0000000000000001 /* PBXContainerItemProxy */;
+		};
+		E100004B0000000000000001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E100001D0000000000000001 /* CalendarWidgetExtension */;
+			targetProxy = E10000400000000000000001 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -525,6 +615,48 @@
 			};
 			name = Release;
 		};
+		E100004C0000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TQV66JM3KL;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@loader_path/../Frameworks",
+					"@loader_path/../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chrisdemeke.easycalendarwidget.CalendarWidgetExtensionTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = CalendarWidgetExtension;
+			};
+			name = Debug;
+		};
+		E100004D0000000000000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = TQV66JM3KL;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@loader_path/../Frameworks",
+					"@loader_path/../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chrisdemeke.easycalendarwidget.CalendarWidgetExtensionTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = CalendarWidgetExtension;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -551,6 +683,15 @@
 			buildConfigurations = (
 				E10000350000000000000001 /* Debug */,
 				E10000360000000000000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E100004E0000000000000001 /* Build configuration list for PBXNativeTarget "CalendarWidgetExtensionTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E100004C0000000000000001 /* Debug */,
+				E100004D0000000000000001 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

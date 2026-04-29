@@ -33,7 +33,7 @@ struct SingleMonthView: View {
     let entry: CalendarWidgetEntry
 
     var body: some View {
-        MonthView(model: entry.currentMonth, size: .small)
+        ConnectedMonthGridView(rows: [[entry.currentMonth]], size: .small)
             .widgetBackground()
     }
 }
@@ -45,10 +45,7 @@ struct TwoMonthGridView: View {
     let entry: CalendarWidgetEntry
 
     var body: some View {
-        HStack(spacing: 8) {
-            MonthView(model: entry.previousMonth, size: .medium)
-            MonthView(model: entry.currentMonth, size: .medium)
-        }
+        ConnectedMonthGridView(rows: [[entry.previousMonth, entry.currentMonth]], size: .medium)
         .widgetBackground()
     }
 }
@@ -60,20 +57,132 @@ struct FourMonthGridView: View {
     let entry: CalendarWidgetEntry
 
     var body: some View {
-        VStack(spacing: 8) {
-            // Top row: Previous + Current
-            HStack(spacing: 8) {
-                MonthView(model: entry.previousMonth, size: .large)
-                MonthView(model: entry.currentMonth, size: .large)
-            }
+        ConnectedMonthGridView(
+            rows: [
+                [entry.previousMonth, entry.currentMonth],
+                [entry.nextMonth, entry.nextNextMonth]
+            ],
+            size: .large
+        )
+        .widgetBackground()
+    }
+}
 
-            // Bottom row: Next + Next Next
-            HStack(spacing: 8) {
-                MonthView(model: entry.nextMonth, size: .large)
-                MonthView(model: entry.nextNextMonth, size: .large)
+private struct ConnectedMonthGridView: View {
+    let rows: [[CalendarMonthModel]]
+    let size: WidgetSize
+
+    var body: some View {
+        ZStack {
+            ConnectedMonthGridSurface(cornerRadius: cornerRadius)
+
+            VStack(spacing: 0) {
+                ForEach(Array(rows.enumerated()), id: \.offset) { _, row in
+                    HStack(spacing: 0) {
+                        ForEach(row) { month in
+                            MonthView(model: month, size: size, style: .connected)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        }
+                    }
+                    .frame(maxHeight: .infinity)
+                }
+            }
+            .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
+
+            ConnectedMonthGridDividers(columns: columnCount, rows: rowCount, cornerRadius: cornerRadius)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+
+    private var columnCount: Int {
+        rows.map(\.count).max() ?? 1
+    }
+
+    private var rowCount: Int {
+        rows.count
+    }
+
+    private var cornerRadius: CGFloat {
+        switch size {
+        case .small: return 22
+        case .medium: return 24
+        case .large: return 24
+        case .extraLarge: return 24
+        }
+    }
+}
+
+private struct ConnectedMonthGridSurface: View {
+    let cornerRadius: CGFloat
+
+    @Environment(\.colorScheme) var colorScheme
+
+    var body: some View {
+        RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+            .fill(.ultraThinMaterial)
+            .overlay(
+                RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                    .fill(
+                        LinearGradient(
+                            colors: gradientColors,
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
+            )
+            .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
+            .shadow(color: shadowColor, radius: shadowRadius, x: 0, y: shadowY)
+    }
+
+    private var gradientColors: [Color] {
+        colorScheme == .dark
+            ? [Color.white.opacity(0.05), Color.clear]
+            : [Color.white.opacity(0.7), Color.white.opacity(0.3)]
+    }
+
+    private var shadowColor: Color {
+        colorScheme == .dark ? Color.black.opacity(0.22) : Color.black.opacity(0.055)
+    }
+
+    private var shadowRadius: CGFloat {
+        colorScheme == .dark ? 3 : 5
+    }
+
+    private var shadowY: CGFloat {
+        colorScheme == .dark ? 1.5 : 2
+    }
+}
+
+private struct ConnectedMonthGridDividers: View {
+    let columns: Int
+    let rows: Int
+    let cornerRadius: CGFloat
+
+    @Environment(\.colorScheme) var colorScheme
+
+    var body: some View {
+        GeometryReader { proxy in
+            ZStack {
+                ForEach(1..<columns, id: \.self) { column in
+                    Rectangle()
+                        .fill(separatorColor)
+                        .frame(width: 1)
+                        .position(x: proxy.size.width * CGFloat(column) / CGFloat(columns), y: proxy.size.height / 2)
+                }
+
+                ForEach(1..<rows, id: \.self) { row in
+                    Rectangle()
+                        .fill(separatorColor)
+                        .frame(height: 1)
+                        .position(x: proxy.size.width / 2, y: proxy.size.height * CGFloat(row) / CGFloat(rows))
+                }
             }
         }
-        .widgetBackground()
+        .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
+    }
+
+    private var separatorColor: Color {
+        colorScheme == .dark ? Color.white.opacity(0.10) : Color.black.opacity(0.065)
     }
 }
 
@@ -84,21 +193,13 @@ struct SixMonthGridView: View {
     let entry: CalendarWidgetEntry
 
     var body: some View {
-        VStack(spacing: 6) {
-            // Top row: PrevPrev + Previous + Current
-            HStack(spacing: 6) {
-                MonthView(model: entry.previousPreviousMonth, size: .extraLarge)
-                MonthView(model: entry.previousMonth, size: .extraLarge)
-                MonthView(model: entry.currentMonth, size: .extraLarge)
-            }
-
-            // Bottom row: Next + NextNext + NextNextNext
-            HStack(spacing: 6) {
-                MonthView(model: entry.nextMonth, size: .extraLarge)
-                MonthView(model: entry.nextNextMonth, size: .extraLarge)
-                MonthView(model: entry.nextNextNextMonth, size: .extraLarge)
-            }
-        }
+        ConnectedMonthGridView(
+            rows: [
+                [entry.previousPreviousMonth, entry.previousMonth, entry.currentMonth],
+                [entry.nextMonth, entry.nextNextMonth, entry.nextNextNextMonth]
+            ],
+            size: .extraLarge
+        )
         .widgetBackground()
     }
 }
@@ -170,24 +271,24 @@ struct CalendarWidgetPreviews: PreviewProvider {
         Group {
             CalendarWidgetEntryView(entry: entry)
                 .previewContext(WidgetPreviewContext(family: .systemSmall))
-                .previewDisplayName("Small")
+                .previewDisplayName("1 Month")
 
             CalendarWidgetEntryView(entry: entry)
                 .previewContext(WidgetPreviewContext(family: .systemMedium))
-                .previewDisplayName("Medium")
+                .previewDisplayName("2 Months")
 
             CalendarWidgetEntryView(entry: entry)
                 .previewContext(WidgetPreviewContext(family: .systemLarge))
-                .previewDisplayName("Large - 4 Month")
+                .previewDisplayName("4 Months")
 
             if #available(macOS 14.0, *) {
                 CalendarWidgetEntryView(entry: entry)
                     .previewContext(WidgetPreviewContext(family: .systemExtraLarge))
-                    .previewDisplayName("Extra Large - 6 Month")
+                    .previewDisplayName("6 Months")
 
                 CalendarWidgetEntryView(entry: entry)
                     .previewContext(WidgetPreviewContext(family: .systemExtraLarge))
-                    .previewDisplayName("Extra Large Dark")
+                    .previewDisplayName("6 Months Dark")
                     .environment(\.colorScheme, .dark)
             }
         }

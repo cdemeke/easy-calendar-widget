@@ -10,7 +10,8 @@ A clean, minimal calendar widget for macOS that displays multiple months on your
 
 ## Features
 
-- **Multiple Sizes**: Small (1 month), Medium (2 months), or Large (4 months) widget options
+- **Clear Layout Options**: Choose **Calendar - 1 Month**, **Calendar - 2 Months**, **Calendar - 4 Months**, or **Calendar - 6 Months**
+- **Connected Calendar Design**: Months share one clean panel with subtle dividers to maximize readable space
 - **Today Highlight**: Current day is visually highlighted for quick reference
 - **Daily Updates**: Automatically refreshes at midnight to update the current day
 - **Dark Mode Support**: Adapts to your system appearance with light and dark themes
@@ -19,10 +20,10 @@ A clean, minimal calendar widget for macOS that displays multiple months on your
 ## Screenshots
 
 ![Widget on Desktop](img/screenshot1.png)
-*Large widget showing 4-month view on the desktop*
+*Calendar widget in Large size, showing a 4-month view on the desktop*
 
 ![Widget Gallery](img/screenshot2.png)
-*All available widget sizes in the widget gallery*
+*Widget gallery with the Calendar widget and its available size options*
 
 ## Requirements
 
@@ -43,7 +44,9 @@ A clean, minimal calendar widget for macOS that displays multiple months on your
 5. Add the widget to your desktop:
    - Right-click on your desktop
    - Select "Edit Widgets..."
-   - Find "Easy Calendar Widget" and drag it to your desktop
+   - Search for "Calendar"
+   - Choose **Calendar - 1 Month**, **Calendar - 2 Months**, **Calendar - 4 Months**, or **Calendar - 6 Months**
+   - Drag your preferred widget to your desktop
 
 ### Option 3: Build from Source
 
@@ -65,7 +68,9 @@ Requires Xcode 15.0+
 4. Add the widget to your desktop:
    - Right-click on your desktop
    - Select "Edit Widgets..."
-   - Find "Easy Calendar Widget" and drag it to your desktop
+   - Search for "Calendar"
+   - Choose **Calendar - 1 Month**, **Calendar - 2 Months**, **Calendar - 4 Months**, or **Calendar - 6 Months**
+   - Drag your preferred widget to your desktop
 
 ## Usage
 
@@ -73,8 +78,9 @@ Once installed, the host app provides instructions for adding the widget:
 
 1. Right-click on your desktop
 2. Select "Edit Widgets..."
-3. Find "Easy Calendar Widget" in the widget gallery
-4. Drag your preferred size to your desktop or Notification Center
+3. Search for **Calendar** in the widget gallery
+4. Choose **Calendar - 1 Month**, **Calendar - 2 Months**, **Calendar - 4 Months**, or **Calendar - 6 Months**
+5. Drag your preferred widget to your desktop or Notification Center
 
 ## Project Structure
 
