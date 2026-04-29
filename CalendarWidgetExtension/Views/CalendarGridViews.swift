@@ -73,23 +73,27 @@ private struct ConnectedMonthGridView: View {
     let size: WidgetSize
 
     var body: some View {
-        ZStack {
-            ConnectedMonthGridSurface(cornerRadius: cornerRadius)
+        GeometryReader { proxy in
+            let cellWidth = proxy.size.width / CGFloat(max(columnCount, 1))
+            let cellHeight = proxy.size.height / CGFloat(max(rowCount, 1))
 
-            VStack(spacing: 0) {
-                ForEach(Array(rows.enumerated()), id: \.offset) { _, row in
-                    HStack(spacing: 0) {
-                        ForEach(row) { month in
-                            MonthView(model: month, size: size, style: .connected)
-                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            ZStack {
+                ConnectedMonthGridSurface(cornerRadius: cornerRadius)
+
+                VStack(spacing: 0) {
+                    ForEach(Array(rows.enumerated()), id: \.offset) { _, row in
+                        HStack(spacing: 0) {
+                            ForEach(row) { month in
+                                MonthView(model: month, size: size, style: .connected)
+                                    .frame(width: cellWidth, height: cellHeight)
+                            }
                         }
                     }
-                    .frame(maxHeight: .infinity)
                 }
-            }
-            .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
+                .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
 
-            ConnectedMonthGridDividers(columns: columnCount, rows: rowCount, cornerRadius: cornerRadius)
+                ConnectedMonthGridDividers(columns: columnCount, rows: rowCount, cornerRadius: cornerRadius)
+            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
