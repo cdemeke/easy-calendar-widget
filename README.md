@@ -22,9 +22,6 @@ A clean, minimal calendar widget for macOS that displays multiple months on your
 ![Widget on Desktop](img/screenshot1.png)
 *Calendar widget in Large size, showing a 4-month view on the desktop*
 
-![Widget Gallery](img/screenshot2.png)
-*Widget gallery with the Calendar widget and its available size options*
-
 ## Requirements
 
 - macOS 13.0 or later
